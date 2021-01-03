@@ -4,10 +4,19 @@ body {
   }
 
 
-.seemore {
-  display: none;
+/* Email Pseudo link  */
+.pseudo-link {
+  color: #1EAEDB; }
+.pseudo-link:hover {
+  color: #0FA0CE; 
+	cursor: pointer;
 }
 
-.seemore:target {
-  display: block;
+
+
+/* Google scholar fontawesome */
+.icon-scholar {
+  content: url('../misc/google-scholar.svg');
+  height: 1em;
+  width: auto;
 }

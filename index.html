@@ -16,15 +16,15 @@
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700' rel='stylesheet' type='text/css'>
   <script src="https://use.fontawesome.com/946aa46844.js"></script>
 
-
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
+  <!-- CSS –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/halflearned.css">
+  <link rel="stylesheet" href="css/halflearned.css">  
 
-
+  
+  <!-- Other utilities –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+  
 	<!--- Mathjax --->
 	<script type="text/javascript" async
   	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -35,12 +35,14 @@
 
 </head>
 
+
+
 <body>
 
   <!-- Primary Page Layout –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
+  <div class="container" style="margin-top:5%">
     <div class="row">
-      <div class="one-half column" style="margin-top: 5%">
+      <div class="one-half column">
         <img class="u-full-width" src="images/photo.jpg" />
       </div>
   	  <div class="one-half column" style="margin-top: 5%; font-size: 1.7rem">
@@ -49,15 +51,22 @@
   	      Postdoctoral scholar<br />
   			  Stanford University <br />
   			  Graduate School of Business <br />
-          <a href="mailto:email@gmail.com"><i class="fa fa-envelope fa-2x" style="color:#303030"></i></a >
-  				<a href="https://twitter.com/vitorhadad"><i class="fa fa-twitter fa-2x" style="color:#303030"></i></a>
+          <span class="tooltipped tooltipped-e tooltipped-no-delay email pseudo-link" 
+                aria-label="Click to copy to clipboard."
+                data-clipboard-text="vitorh@stanford.edu">
+                vitorh@stanford.edu
+          </span>  <br />
+  				<a href="https://twitter.com/vitorhadad"><i class="fa fa-twitter fa-2x"></i></a>
   				<a href="https://github.com/halflearned"><i class="fa fa-github fa-2x" style="color:#303030"></i></a>
+          <a href="https://scholar.google.com/citations?hl=en&user=lTmDo34AAAAJ&view_op=list_works&gmla=AJsN-F5jlDegCdZmqFp0gNthVCMMKy48L-gc5GcvqwvWXFaYtXntMBfozz23hQNCHF24OY9qzian6FiawEsTtQKOzSXDtEHU05eLmlQpriXdA9IyTh9kS5xDZOZ_g-AWxkTm2kB5y3SrtTsBC0EzIKUuBVRM-99dx-RWNxjVMPqx0JQesKA_sjOikmdMAkW1buw8f0tLdq6I&sciund=13307214944424333998"><span class="fab icon-scholar fa-2x" style="font-size: 3rem"></span></a>
         </p>
   	  </div>
 	</div>
-	<div class="row" style="margin-top:5%">
+
+  
+	<div class="row" style="margin-top:5%; font-size: 1.7rem">
 		<p>
-    I'm an economist with experience in a variety of data science and machine learning problems, focusing in particular on personalized recommendations and adaptive experimental design. My projects have ranged from the very practical (e.g., promoting modern contraceptives in developing countries) to the theoretical (e.g., statistical analysis of data collected via multi-armed bandits). I've led multi-disciplinary teams in collaboration with different institutions, including the New York City Department of Finance and the World Bank. I'm interested in deploying the appropriate statistical tools to solve real-life issues. 
+    I'm a postdoc at the <a href="https://www.gsb.stanford.edu/faculty-research/centers-initiatives/sil">Golub Capital Social Impact Lab</a>, which is led by <a href="https://www.gsb.stanford.edu/faculty-research/faculty/susan-athey"> Susan Athey</a> at Stanford GSB. Here, my work focuses mostly on the design and analysis of adaptive experiments, such as multi-armed bandits and contextual bandits. I'm also a collaborator on the R package <a href="https://github.com/grf-labs/grf">grf</a>. I hold a PhD in Economics from Boston College, where I studied demand estimation and organ exchange with <a href="http://economics.emory.edu/home/people/faculty/biography/hoderlein-stefan.html">Stefan Hoderlein</a>, <a href="https://www.bc.edu/bc-web/schools/mcas/departments/economics/people/faculty-directory/arthur-lewbel.html">Arthur Lewbel</a> and <a href="https://sites.bc.edu/utku-unver/">Utku U&#x308;nver</a>.
 		</p>
 	</div>
 	<div class="row">
@@ -71,42 +80,46 @@
 		</ul>
     <ul>
         Tractable contextual bandits beyond realizability<br/>
-        Sanath Kumar Krishnamurthy, <b>Vitor Hadad</b> and Susan Athey.<br>
+        Sanath Kumar Krishnamurthy, <b>Vitor Hadad</b> and Susan Athey.<br />
         <a href="https://arxiv.org/abs/2010.13013">[arXiv]</a>
     </ul>
 		<ul>
 				Sufficient Representations for Categorical Variables<br/>
-				Jonathan Johannemann, <b>Vitor Hadad</b>, Susan Athey, Stefan Wager.<br>
+				Jonathan Johannemann, <b>Vitor Hadad</b>, Susan Athey, Stefan Wager.<br />
 				Preprint.<br/>
 				<a href="https://arxiv.org/abs/1908.09874">[arXiv]</a>
 				<a href="https://github.com/grf-labs/sufrep">[github]</a>
 		</ul>
-		<ul> Essays in Econometrics and Dynamic Kidney Exchange. Phd Thesis. <br/>
+		<ul> 
+        Essays in Econometrics and Dynamic Kidney Exchange. <br />
+        Vitor Hadad. Doctoral dissertation. <br/>
 				<a href="https://dlib.bc.edu/islandora/object/bc-ir%3A107962/datastream/PDF/download/citation.pdf">[PDF]</a>
 		</ul>
-
-		<!-- <h4> Teaching </h4>
-		<ul>
-			Boston College
-		</ul>
-		<ul> EC3389: Big Data. Co-taught with Stefan Hoderlein. <br/>
-				<a href="https://github.com/halflearned/EC3389">[Notes]</a>
-		</ul>
-		<ul> Boston College - EC3389 - Big Data <br/>
-				<a href="https://github.com/halflearned/EC3389">[Notes]</a>
-		</ul> -->
-
-		<!-- <h4> Notes </h4>
-		<ul> Empirical Processes <br />
-			<a href="">[blog]</a><a href="">[code]</a>
-		</ul>
-		<ul> Semiparametric inference <br />
-			<a href="">[blog]</a><a href="">[code]</a>
-		</ul>
-    </div> -->
   </div>
 
 <!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+
+
+<script>
+var clipboard = new ClipboardJS('.email');
+
+clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+
+    e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+});
+</script>
+
+
+
+
 
 </html>
