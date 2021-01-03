@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Vitor Hadad</title>
+  <meta name="personal academic page" content="">
+  <meta name="Vitor Hadad" content="">
+	<base href="file:///Users/vitorh/Documents/website/">
+
+
+  <!-- Mobile Specific Metas ––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT ––––––––––––––––––––––––––––––––––––––––––-->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+	<script src="https://use.fontawesome.com/039c40e32f.js"></script>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/halflearned.css">
+
+
+	<!--- Mathjax --->
+	<script type="text/javascript" async
+  	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<script type="text/x-mathjax-config">
+  	MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']]},
+				tags: 'ams'
+		});
+	</script>
+
+</head>
+<body>
+
+<!--- Declaring useful math symbols ---->
+
+\begin{align}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\SubG}{SubG}
+\DeclareMathOperator{\htheta}{\widehat{\theta}}
+\DeclareMathOperator{\ttheta}{\tilde{\theta}}
+\newcommand{d}[1]{\frac{\partial}{\partial #1}}
+\newcommand{EE}[1]{\E \left[ #1 \right]}
+\newcommand{Var}[1]{\text{Var} \left[ #1 \right]}
+\newcommand{PP}[1]{P \left[ #1 \right]}
+\end{align}
+
+
+
+<!-- Primary Page Layout –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<div class="row" style="margin:5%">
+	<h1>Notes</h1>
+</div>
+<div class="row" style="margin:5%">
+
+	<!-- Overview -->
+	<h4> Jan 8 Week </h4>
+
+	<div class="row" style="margin:5%">
+		<h5>Topics</h5>
+		<ul>
+			<li>Proof techniques</li>
+			<ul>
+				<li>Chernoff bound</li>
+				<li>Symmetrization</li>
+			</ul>
+			<li>Concepts</li>
+			<ul>
+				<li>Subgaussianity</li>
+			</ul>
+		</ul>
+	</div>
+
+	<div class="row" style="margin:5%">
+		<h5>Preliminaries</h5>
+
+		<ul>
+			<li>Markov inequality</li>
+			<li>Moment-generating functions</li>
+		</ul>
+
+	</div>
+
+	<div class="row" style="margin:5%">
+		<h5>Chernoff bounds</h5>
+
+		<p>
+			<b>Markov</b> says that a random variable $Z \geq 0$ satisfies:
+			\begin{align}
+				\PP{Z > t} \leq \frac{\E[Z]}{t}
+			\end{align}
+		</p>
+
+		<p>
+			<b>Chebyshev</b> first applies the monotonic function $f(x) = x^{k}$, and then hits it with Markov.
+			\begin{align}
+				\PP{Z > t} = \PP{Z^{k} > t} \leq \frac{\EE{Z^{k}}}{t^{k}} \qquad\text{for }k \in \mathbb{N}
+			\end{align}
+
+			This inequality is often applied taking $Z$ to be $|X - \EE{X}|$ and $k=2$.
+
+			\begin{align}
+				\PP{|X - \EE{X}| > t} \leq \frac{\Var{X}}{t^{2}}
+			\end{align}
+		</p>
+
+		<p>
+			<b>Chernoff</b> first applies the monotonic function $f(x) = e^{\lambda x}$
+			 [1] for some free parameter $\lambda > 0$....
+			\begin{align}
+				\PP{X > t} \leq \PP{e^{\lambda X} > e^{\lambda t}} \leq \frac{\EE{e^{\lambda X}}}{e^{\lambda t}}
+			\end{align}
+
+			...and then optimizes over this free parameter.
+			\begin{align}
+				\PP{X > t} \leq \inf_{\lambda > 0} \frac{\EE{e^{\lambda X}}}{e^{\lambda t}}
+				\label{eq1}
+			\end{align}
+		</p>
+
+		<p>
+			Example: if $X \sim \mathcal{N}(0, \sigma^2)$, then $\EE{e^{\lambda X}} = e^{ \frac{\lambda^2\sigma^2}{2}}$. Plug it in an optimize over $\lambda$.
+			\begin{align}
+				\EE{X > t} \leq \inf_{\lambda > 0} \frac{e^{ \frac{\lambda^2\sigma^2}{2}} }{e^{\lambda t}} = e^{-\frac{t^2}{2\sigma^2}}
+			\end{align}
+		</p>
+
+		<p>
+			Takeaways: Chebyshev bounds random variables by their kth centered moments,
+			while Chernoff bounds them by their moment-generating functions.
+		</p>
+	</div>
+
+	<div class="row" style="margin:5%">
+		<h5>Subgaussian random variables</h5>
+		<p>
+			Chernoff is the starting point for the study of random variables whose
+			moment-generating functions decay very fast, since those are guaranteed to have thin tails.
+		</p>
+
+		<p>
+			A zero-mean random variable $X$ is <b>$\sigma$-subgaussian</b> and its mgf decays as least as
+			fast as the mgf of a gaussian random variable with variance $\sigma^2$.
+			\begin{align}
+				\EE{e^{\lambda X}} \leq e^{\frac{\lambda^2 \sigma^2}{2}} \qquad \text{for all }\lambda > 0
+			\end{align}
+		</p>
+
+		Using the Chernoff bound and the inequality in the definition, we see that subgaussian random variables are
+		characterized by squared-exponentially thin tails:
+		\begin{align}
+			\PP{|X_{i}| > t} \leq 2e^{-\frac{t^2}{2\sigma^2}}
+		\end{align}
+
+		In fact, they also show other useful characterization. For example, they exhibit slowly growing absolute moments:
+		$\EE{|X_{i}|^{k}}^{1/k} \leq C\sqrt{k}$ for some constant $C$, and they are closed under linear combinations.
+		</p>
+		<p>
+			<small>	Think: do similar properties hold for normally distributed random variables?</small>
+		</p>
+	</div>
+	<div class="row" style="margin:5%">
+		<h5>Properties of subgaussian random variables</h5>
+		<p>
+			 It's a good exercise to prove these. Also try to derive the subgaussianity parameters.
+		</p>
+		<ul>
+			<p>
+				<li>If $X$ is subgaussian, then $-X$ is also subgaussian.</li>
+			</p>
+			<p>
+				<li>If $X$ is subgaussian, then $aX$ is also subgaussian.</li>
+			</p>
+			<p>
+				<li>If $X$ is Rademacher, then it is $1$-subgaussian.</li>
+				<small>Rademacher random variables are 1 or -1 with equal probability.</small>
+				<small>Use the fact that $\frac{e^{z} + e^{-z}}{2} \leq e^{z^2}$. Better yet, prove this fact using Taylor series.</small>
+			</p>
+			<p>
+				<li>If $\epsilon$ is Rademacher and $X$ independent from it, then <i>conditionally on </i> $X$, $\epsilon X$ is $X$-subgassian.</li>
+				<small>Nothing to prove here, really. It's a direct consequence of the second bullet point.</small>
+			</p>
+			<p>
+				<li>If $X_{1}$ and $X_{2}$ are subgaussian and independent, then $Y = aX_{1} + bX_{2}$ is also subgaussian.</li>
+				<small>Use the characteristic function of $Y$.</small>
+			</p>
+			<p>
+				<li>If $X_{i}$ is subgaussian and independent, then $\overline{X} := \frac{1}{n} \sum_{i} X_{i}$ is also subgaussian.</li>
+				<small>Use the previous result.</small>
+			</p>
+		</ul>
+
+
+
+	</div>
+
+	<div class="row" style="margin:5%">
+		<h5>A weaker Hoeffding Lemma via Symmetrization</h5>
+		<p>
+			<b>Hoeffding</b> says that all random variables with support bounded by $[a, b]$ are $\frac{(b-a)}{2}$-subgaussian.
+			\begin{align}
+				\EE{e^{\lambda X}} \leq e^{\frac{\lambda^2(b - a)^2}{8}} \qquad \text{for all }\lambda > 0
+			\end{align}
+		</p>
+		<p>
+			The proof involves some work on the mgf (e.g. Rigollet Lemma 1.8), but the techniques used there are not very
+			widely useful as far as I know. Instead, let's prove a slightly weaker statement, following Wainwright (Example 2.4).
+			\begin{align}
+			\EE{e^{\lambda X}} \leq e^{\frac{\lambda^2(b - a)^2}{2}} \qquad \text{for all }\lambda > 0
+			\end{align}
+
+		</p>
+		<p>
+			<b>Symmetrization</b> is the technique of bounding a random variable $X - \EE{X}$ by some function of $X - X'$,
+			where $X'$ is another random variable distributed as $X$, but independent from it. Intuitively, if two draws $X$ and $X'$
+			from the same probability distribution are often close together, then $X$ cannot vary that much.
+		</p>
+		<p>
+		 	Assume that $X$ is zero mean. The proof happens in three steps.
+		</p>
+		<h6>Step 1: Introduce an independent copy</h6>
+		<p>
+		</p>
+		<h6>Step 2: Use Jensen's inequality</h6>
+
+		<h6>Step 3: Introduce </h6>
+		<p>
+
+		</p>
+	</div>
+	<div class="row" style="margin:5%">
+		<h5>More exercises</h5>
+
+	</div>
+
+	<div class="row" style="margin:5%">
+
+			<h5>Notes</h5>
+
+		<h5>Notes</h5>
+		<ul>
+			<li>[1] The Chernoff inequality explanation, we needed one "extra" inequality. Why?</li>
+			<li>[2] Some authors, like Vershynin, don't require subgaussian random variables to have mean zero.
+			 </li>
+		</ul>
+	</div>
+</div>
+
+<span style="padding-bottom:2000px">1</span>
+	</p>
+</div>
+
+
+<!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

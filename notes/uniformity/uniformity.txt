@@ -1,0 +1,5 @@
+Lehmann 2.16: Why uniformity
+  - Uniform confidence intervals vs pointwise: poisson case
+????:
+  - Exact uniform confidence intervals
+  

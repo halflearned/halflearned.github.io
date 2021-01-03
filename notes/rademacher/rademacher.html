@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta charset="utf-8">
+	<title>Vitor Hadad</title>
+	<meta name="personal academic page" content="">
+	<meta name="Vitor Hadad" content="">
+	<base href="file:///Users/vitorh/Documents/website/">
+
+
+	<!-- Mobile Specific Metas ––––––––––––––––––––––––––––––––––––– -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- FONT ––––––––––––––––––––––––––––––––––––––––––-->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+	<script src="https://use.fontawesome.com/039c40e32f.js"></script>
+
+	<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	<link rel="stylesheet" href="css/halflearned.css">
+
+
+	<!--- Mathjax --->
+	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']]},
+				tags: 'ams'
+		});
+	</script>
+
+</head>
+
+<body>
+
+	<!--- Declaring useful math symbols ---->
+
+	\begin{align}
+	\DeclareMathOperator{\htheta}{\widehat{\theta}}
+	\DeclareMathOperator{\ttheta}{\tilde{\theta}}
+	\newcommand{d}[1]{\frac{\partial}{\partial #1}}
+	\newcommand{Var}[1]{\text{Var} \left[ #1 \right]}
+	\newcommand{\EE}[2][]{\mathbb{E}_{#1}\left[#2\right]}
+	\newcommand{\PP}[2][]{\mathbb{P}_{#1}\left[#2\right]}
+	\newcommand{\htheta}{\hat{\theta}}
+	\newcommand{\hf}{\hat{f}}
+	\newcommand{\ff}{\mathcal{F}}
+	\newcommand{\Rn}{\widehat{R}_{n}}
+	\DeclareMathOperator{\P}{\mathbb{P}}
+	\newcommand{\Norm}[1]{\left\lVert#1\right\rVert}
+	\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+	\newcommand{\cond}{\,\big|\,}
+	\end{align}
+
+
+
+	<!-- Primary Page Layout –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+	<div class="row" style="margin:5%">
+		<h1>Empirical risk minimization and ULLNs</h1>
+	</div>
+
+	<!-- Overview -->
+
+	<div class="row" style="margin:5%">
+		<h4> Topics </h4>
+		<p>
+			<ul>
+				<li> Empirical risk minimization </li>
+				<li> Consistency and uniform law of large numbers </li>
+				<li> Rademacher complexity </li>
+			</ul>
+		</p>
+	</div>
+
+
+	<div class="row" style="margin:5%">
+		<h5>Some notation and preliminaries</h5>
+		<p>
+			This notation will be often used for the expectation operators.
+			<ul>
+				<li> $\PP{X_{i}} := \EE{ X_{i} }$  </li>
+				<li> $\PP{X_{i}} := \EE[X_{i} \sim \P]{ f(X_{i}) }$  with $X_{i} \sim \mathbb{P}$</li>
+				<li> $\PP[n]{X_{i}} := \frac{1}{n} \sum_{i=1}^{n} X_{i}$  </li>
+				<li> $\P_n f := \frac{1}{n} \sum_{i=1}^{n} f(X_{i})$  </li>
+				<li> $(\P_{n} - \P)f := \frac{1}{n} \sum_{i=1}^{n} f(X_{i}) - \EE{f(X_{i})}$  </li>
+			</ul>
+		</p>
+
+		<p>
+			 As far as I know, using $\P f$ to mean expectation was popularized by David Pollard, who in turn credits de Finetti (see Chapter 1, section 4 in his <a href="http://www.stat.yale.edu/~pollard/Courses/600.spring06/Handouts/Chapter1.pdf">book</a>). I don't know if I get the
+			 merits of using this notation, but it's entirely pervasive in the empirical process literature, so we'll have to deal with it.
+		</p>
+
+		<p>
+			Sup norm
+		</p>
+		<ul>
+			<li> $\Norm{\P_{n} - \P}_{\ff} := \sup_{f \in \ff} \abs{  (\P_{n} - \P)f  }$ </li>
+			<li> $\Norm{\P_{n} - \P}_{\ff} := \sup_{f \in \ff} \abs{  (\P_{n} - \P)f  }$ </li>
+		</ul>
+
+		<p>
+			Data
+		</p>
+		<ul>
+			<li> $Z_{i}$ is an element of the data. Could be $X_{i}$ or a tuple $(X_{i}, Y_{i})$ as appropriate. </li>
+			<li> $Z_{1}^{n} := (Z_{1}, \cdots, Z_{n})$ </li>
+		</ul>
+
+		<p>
+			Warm-up questions:
+			<ul>
+				<li> Is $\P_{n}f$ a random variable or a fixed constant?</li>
+				<li> Which one is larger, $\sup_{f \in \ff} \EE{ f(X_{i}) }$ or $\EE{ \sup_{f \in \ff} f(X_{i}) }$?</li>
+				<li> Is $\sup_{x \in \mathcal{X}} \exp(f(x))$ equal to $\exp( \sup_{x \in \mathcal{X}} f(x))$? </li>
+			</ul>
+		</p>
+
+	</div>
+
+	<div class="row" style="margin:5%">
+		<h5>Function classes</h5>
+		<p>
+			 	Sets of functions are often notated as $\ff$ or $\Theta$.
+
+				The $\ff$ notation often makes us think of a set of arbitrary functions, whereas $\Theta$ makes us think of a set of parametric functions.
+
+				But authors tend to use these interchangeably. So just because we're using $\ff$ or $\Theta$, don't assume that we are in a non-parametric or parametric world.
+
+				Since we can identify a <i>parameter</i> with a <i>function</i>, from now own I'll use both terms interchangeably too.
+		</p>
+	</div>
+
+
+	<div class="row" style="margin:5%">
+		<h5>Loss, Risk and Excess Risk</h5>
+		<p>
+			Mean squared error over linear models. Data comes from some distribution $\P_{\theta_{*}}$. True model is not necessarily linear.
+			<ul>
+				<li> Loss function: $\ell(Z_{i}, \theta) = (X_{i}\theta - Y_{i})^2$</li>
+				<li> Risk: $R(\theta) = \P_{\theta_{*}}\ell(\cdot, \theta) = \EE[(X_{i}, Y_{i}) \sim \P_{\theta_{*}}]{ (X_{i}\theta - Y_{i})^2 }$  </li>
+				<li> Empirical Risk: $R_{n}(\theta) = \P_{n}\ell(\cdot, \theta) = \frac{1}{n} \sum_{i=1}^{n} (X_{i}\theta - Y_{i})^2 $ with $(X_{i}, Y_{i}) \sim \P_{\theta_{*}}$  </li>
+			</ul>
+		</p>
+
+		<p>
+			Mean squared error over a class of functions $\ff$. Data comes from some distribution $\P_{f_{*}}$. True model is not necessarily in class $\ff$.
+			<ul>
+				<li> Loss function: $\ell(Z_{i}, f) = (X_{i}f - Y_{i})^2$</li>
+				<li> Risk: $R(f) = \P_{f_{*}}\ell(\cdot, f) = \EE[(X_{i}, Y_{i}) \sim \P_{f_{*}}]{ (f(X_{i}) - Y_{i})^2 }$  </li>
+				<li> Empirical Risk: $R_{n}(f) = \P_{n}\ell(\cdot, f) = \frac{1}{n} \sum_{i=1}^{n} (f(X_{i}) - Y_{i})^2 $ with $(X_{i}, Y_{i}) \sim \P_{f_{*}}$  </li>
+			</ul>
+		</p>
+
+		<p>
+			Maximum likelihood for a parametric class with parameter $\theta \in \Theta_{0}$. True model is not necessarily parametric, or in this class.
+			<ul>
+				<li> Loss function: $\ell(Z_{i}, \theta)$ is the negative log-likelihood for data point $Z_{i}$ evaluated at parameter $\theta$.</li>
+				<li> Risk: $R(\theta) = \P_{\theta_{*}}\ell(\cdot, \theta) = \EE[(X_{i}, Y_{i}) \sim \P_{\theta_{*}}]{ \ell(Z_{i}, \theta) }$  </li>
+			</ul>
+		</p>
+
+			 Excess risk over set $\Theta_{0}$: $R(\theta) - R(\theta_{0})$ where $\theta_{0} := \inf_{\theta \in \Theta_{0}} R(\theta)$
+	</div>
+
+
+	<div class="row" style="margin:5%">
+		<h5>Empirical risk minimization</h5>
+		<p>
+			What we really want. Given a parameter space $\Theta_{0}$, we want to choose a $\htheta_{n} \in \Theta_{0}$ that attains zero excess risk asymptotically.
+			\begin{align}
+				R(\htheta_{n}) - R(\theta_{0}) \xrightarrow[n \to \infty]{p} 0
+			\end{align}
+		</p>
+		<p>
+			The problem is that we don't observe the true risk $R$, only the empirical risk $\Rn$. What assumptions about the relationship between  $R$ and $\Rn$ allow us to do satistfy the objective above?
+		</p>
+		<p>
+			Decompose the risk into three terms.
+		</p>
+		\begin{align}
+			R(\htheta_{n}) - R(\theta_{0}) = \left( R(\htheta_{n}) - \Rn(\htheta_{n}) \right) + \left( \Rn(\htheta_{n}) - \Rn(\theta_{0}) \right) + \left( \Rn(\theta_{0})  - R(\theta_{0}) \right)
+		\end{align}
+		<p>
+			Most of our efforts will be to constrain the first term, and prove that
+		</p>
+		\begin{align}
+			\sup_{\theta \in \Theta_{0}} \abs{  R(\theta) - \Rn(\theta)  } \xrightarrow[n \to \infty]{p} 0
+		\end{align}
+		<p>
+			The <i>worst-case</i> scenario examined here may seem overkill. Do we really need uniform convergence just to prove consistency? Actually, in the absence of additional assumptions it can be shown that this is a necessary and sufficient assumption for risk convergence. (Vapnik, 1971.)
+		</p>
+
+		<p>
+			<b>Note:</b> The objective mentioned that the beginning of this section only says that $\htheta_{n}$ eventually atains the lowest possible (excess) risk, but it does not imply that $\htheta_{n} \xrightarrow[n \to \infty]{p} \theta_{0}$ necessarily. In fact, we haven't even assumed that $\theta_{0}$ is unique, so it'd be strange to talk about this convergence! However, if the true risk function $R$ increases strictly as we move away from a unique minimizer $\theta_{0}$, then the conditions above are sufficient for parameter consistency. We'll have more to say about this much later, when we also discuss rates of convergence.
+		</p>
+	</div>
+
+	<div class="row" style="margin:5%">
+		<h5>Risk and Rademacher Complexity</h5>
+		<p>
+			We have shifted our objective to bounding the <i>uniform deviation</i> given above. Formally, for every $\epsilon, \delta > 0$, we want to show that there is an $\underline{n}$ such that for $n > \underline{n}$,
+		</p>
+		\begin{align}
+			\PP{ \sup_{f \in \ff} \abs{  \Rn(f) - R(f) } > \epsilon} < \delta
+		\end{align}
+		<p>
+			Two steps for bounding tail probabilities.
+			<ol>
+				<li>Show that the tail probability is bounded by some function of the expectation.</li>
+				<li>Show that the expectation is bounded.</li>
+			</ol>
+			The first step is not hard. For a simple bound, note that we are trying to bound a non-negative random variable, so we can go ahead and use Markov if we like. Wainwright imposes an additional assumption of boundedness and gets a tighter bound. Right now, we're not interested in getting the tightest bound, so let's focus on the second step.
+		</p>
+		<p>
+			I'm going to go ahead and sketch the argument that is always made in here. Each inequality here is slightly non-trivial, but this string of arguments shows up often enough that you should try to get comfortable with it.
+		</p>
+		</p>
+			\begin{align}
+				\EE{ \sup_{f \in \ff}  \abs{ \Rn(f) - R(f)  } }
+				\equiv \EE{ \sup_{f \in \ff}  \abs{  \P_{n}f - \P f  }   }
+				\leq \EE{ \sup_{f \in \ff}  \abs{  \P_{n}f - \P_{n}'f }   }
+				\leq 2 \EE{ \sup_{f \in \ff}  \abs{ \frac{1}{n} \sum_{i=1}^{n} \epsilon_{i} f(X_{i}) }   }
+				\equiv 2 \mathcal{R}_{n}(\ff)
+			\end{align}
+		<p>
+			The first inequality is due to <i>symmetrization by an independent sample</i>: the distance between a random variable $\P_{n}f$ and its expectation $\P f$ cannot be much larger than the distance between two indendent realizations.
+		</p>
+		<p>
+			The second inequality is <i>symmetrization by Rademacher random variables $\epsilon_{i}$</i>; an triangle inequality finishes the result.
+		</p>
+		<p>
+			The resulting quantity is called the <b>Rademacher complexity</b> of $\ff$. One of its interpretations is the correlation of $f(X_{i})$ with a sequence of "noise" Rademacher random variables $\epsilon_{i}$. If the class $\ff$ is large enough to make the correlation high, then it must be a large class of functions (hence the term <i>complexity</i>).  The inequalities above show that a sufficient condition for the uniform law of large numbers is that the Rademacher complexity goes to zero.
+		</p>
+		<p>
+			 Again, we can show (see Wainwright textbook) that a vanishing Rademacher complexity is also a necessary condition.
+		</p>
+	</div>
+
+
+	<div class="row" style="margin:5%">
+		<h5>Baby steps: Finite classes</h5>
+		<p>
+			A small enough class should be easier to deal with than a huge monstrosity.
+		</p>
+		<p>
+			<b>Massart's finite class lemma</b>
+			\begin{align}
+				\frac{1}{n} \EE{ \sup_{f \in \ff} \sum_{i} \epsilon_{i} f(X_{i})}
+				\leq \frac{1}{n} D^2 \sqrt{ 2 \log |\ff|}
+			\end{align}
+		</p>
+
+	</div>
+	<span style="padding-bottom:500px">1</span>
+
+
+	<div class="row" style="margin:5%">
+		<h5>Allowing for larger classes</h5>
+		<p>
+			In order to extend these results to real-world examples
+			<ul>
+				<li>Geometric: "discretize" $\ff$</li>
+				<li>Combinatorial: even though $\ff$ may be large, $\{f(X_{i})\}_{i}$ may be relative small set.</li>
+			</ul>
+
+		</p>
+	</div>
+	<span style="padding-bottom:500px">1</span>
+
+
+
+	<!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>

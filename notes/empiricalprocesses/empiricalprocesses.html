@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Vitor Hadad</title>
+  <meta name="personal academic page" content="">
+  <meta name="Vitor Hadad" content="">
+	<base href="file:///Users/vitorh/Documents/website/">
+
+
+  <!-- Mobile Specific Metas ––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT ––––––––––––––––––––––––––––––––––––––––––-->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+	<script src="https://use.fontawesome.com/039c40e32f.js"></script>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/halflearned.css">
+
+
+	<!--- Mathjax --->
+	<script type="text/javascript" async
+  	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<script type="text/x-mathjax-config">
+  	MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+
+</head>
+<body>
+
+<!--- Declaring useful math symbols ---->
+
+\begin{align}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\htheta}{\widehat{\theta}}
+\DeclareMathOperator{\ttheta}{\tilde{\theta}}
+\newcommand{d}[1]{\frac{\partial}{\partial #1}}
+\newcommand{EE}[1]{E \left[ #1 \right]}
+\end{align}
+
+
+
+<!-- Primary Page Layout –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<div class="row" style="margin:5%">
+	<h1>Empirical Processes</h1>
+</div>
+<div class="row" style="margin:5%">
+
+	<!-- Overview -->
+	<h4> Overview </h4>
+		<ul>
+			<li>
+				The goal is to find the asymptotic distribution of a parameter of interest.
+			</li>
+			<li>
+				If the parameter of interest is finite-dimensional and your loss function is smooth, then you
+			</li>
+			<li>
+				Otherwise <b>empirical processes (EP)</b> theory is a convenient tool.
+			</li>
+			<li>
+				Crude bounds and sufficient conditions.
+			</li>
+		</ul>
+
+
+	<!-- Uniform -->
+	<!-- From Lehmann 2.16 -->
+	<h4> Uniform convergence </h4>
+
+	The difference between pointwise and uniform convergence. <br />
+
+	Lehmann's example with {0, 1} sequences. <br />
+
+	Another example with statistics. <br />
+
+	<ul>
+		<li> Convergence of functionals of the empirical distribution </li>
+		<li> Consistency </li>
+		<li> Asymptotic normality </li>
+	</ul>
+
+
+
+
+  <!--- Consistency --->
+	<!-- References:
+		van der Vaart 5.2;
+		Duchi's 300b notes lecture 9;
+		Wainwright Ch 4.1
+		Pollard 1984 Ch. 2
+	-->
+</div>
+<div class="row" style="margin:5%">
+	<h4> Consistency </h4>
+
+	Suppose $\hat{\theta}_{n}$ minimizes a <i>empirical risk function</i> $R_{n}(\theta)$. <br />
+
+	We want to talk about the asymptotic behavior of $\hat{\theta}_{n}$. <br />
+
+	Expected risk $R(\theta)$. <br />
+
+	The previous section shows that pointwise convergence is not enough to talk about minimizers. <br />
+
+	<h6>Theorem: Consistency using uniform convergence</h6>
+
+	<ol>
+		<li> Uniform convergence:
+				$\inf_{\theta \in \Theta} |R_{n}(\theta) - R(\theta) | \xrightarrow{p} 0$
+		</li>
+		<li>
+			Well-separated minimum
+			$\inf_{\theta: |\theta - \theta_{0}| > \epsilon} R(\theta) < R(\theta_{0})$
+		</li>
+	</ol>
+
+	<div class="row">
+		<div class="six columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/risk_decomposition.svg" class="u-full-width"/>
+					<figcaption>Risk decomposition</figcaption>
+				</center>
+			</figure>
+		</div>
+
+
+		<div class="six columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/well_separated.svg" class="u-full-width" />
+					<figcaption>Well-separated minimum</figcaption>
+				</center>
+			</figure>
+		</div>
+	</div>
+
+	<b>Example: sample median of a continuous function</b>
+
+
+	<quotation>
+			 [Pollard 1984, p. 7] As we encounter new functions of the empirical measure, new uniform
+			 convergence theorems will be demanded. We shall be exploring two method for proving these theorems. <br />
+			 The first methods is simpler in concept, but harder in execution. It involves a direct approximation
+			 of function in an infinite class $\mathcal{F}$ by a finite collection of functions. (...) <br />
+			 The second method depends heavily upon symmetry properties implied by independence. It uses simple combinatorial
+			 arguments to identify classes satisfying uniform strong laws of large numbers under indep. sampling.
+	</quotation>
+
+</div>
+<div class="row" style="margin:5%">
+	<h4>Method I: Direct Approximation</h4>
+
+	<h5>Example: bracketing</h5>
+	<figure>
+		<center>
+			<img src="notes/empiricalprocesses/figures/bracketing_ulln.png" height="400" />
+		</center>
+	</figure>
+
+	<b>Exercise</b> Where did we use the fact the the data is iid?
+
+</div>
+<div class="row" style="margin:5%">
+	<h5>Method II: Identifying classses of functions</h5>
+
+
+	<h5>Interlude: Shattering Lemma</h5>
+
+
+	<div class="row">
+		<div class="four columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/collection_s.jpg" class="u-full-width"/>
+					<figcaption>Collection $S$</figcaption>
+				</center>
+			</figure>
+		</div>
+
+
+		<div class="four columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/set_a.svg" class="u-full-width" />
+					<figcaption>Some subset $A$</figcaption>
+				</center>
+			</figure>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="four columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/shattering_example.png" class="u-full-width"/>
+					<figcaption>Collection $S$</figcaption>
+				</center>
+			</figure>
+		</div>
+
+		<div class="four columns">
+			Left: Trying to shatter $A$ with the collection $S$.
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+	<!--- Chaining ---->
+	<h4> Chaining and Entropy Bounds </h4>
+
+	<p>
+		Chaining is another trick used to bound the maxima of stochastic processes.
+	</p>
+	<p>
+		Let's work with a particular stochastic process called the Brownian motion.
+	</p>
+	<p>
+		Let $B(t)$ be a  brownian motion process.
+	</p>
+	<p>
+	 (Properties of Brownian motion)
+	</p>
+	<p>
+		We will try to bound this quantity.
+	</p>
+	\begin{align}
+		\EE{ \sup_{t \in [0, 1]} | B(t) | }
+	\end{align}
+
+
+	<h5>A starting point</h5>
+	<p>
+	 	Take $n$ random variables $Z_{i} \sim \mathcal{N}(0, \sigma_{i}^2)$, not necessarily independent.
+		Then this useful fact is true.
+	</p>
+
+	\begin{align}
+		\EE{ \max_{i} |Z_{i}| } \leq C \sigma_{\max} \sqrt{\log n} \qquad \sigma_{\max} := \max_{i} \sigma_{i}
+	\end{align}
+
+	<p>
+	 	Then perhaps we could use the limit of a sequence of grids $T(k)$ of $2^{k}$ points spaced over the interval?
+		\begin{align}
+			\EE{ \max_{t \in T(k)} | B(t) | }
+			\xrightarrow[k \to \infty]{}
+			\EE{ \sup_{t \in [0, 1]} | B(t) | }
+		\end{align}
+	</p>
+
+	<p>
+		Sadly, this doesn't work because the bound grows too fast.
+		\begin{align}
+			\EE{ \max_{t \in T(k)} | B(t) | } \leq C 1^{\frac{1}{2}} \sqrt{ \log 2^{k}}
+		\end{align}
+		which diverges with $k$, making the bound vacuous. Note the $1$ here refers to the fact that the largest standard deviation is $1$.
+	</p>
+
+	<h5>Working with increments</h5>
+
+	Another reasonable approach will be to work with increments.
+
+	Let's consider two grids.
+
+	\begin{align}
+		T(0) &= \{ 1 \} \\
+		T(1) &= \{ .5, 1 \} \\
+		T(2) &= \{ .25, .5, .75, 1 \}
+	\end{align}
+
+
+	\begin{align}
+		\max_{t \in T(2)} |B(t)| \leq \max_{t \in T(2)} |B(t) - B(s)| + |B(s)| \qquad \text{for all } s \in T(1).
+	\end{align}
+	<p>
+		(In fact, this expression is true for any $s \in \mathbb{R}$, but we'll focus on the $T(1)$ points for now.)
+	</p>
+	<p>
+		That is progress -- we have got an expression in terms of an increment.
+	</p>
+	<p>
+		But now we don't want this increment to grow too large. Let's constraint the distance between $t$ and $s$:
+		<ul>
+			<li>if $B(.25)$ or $B(.5)$ are the maximum: let $s = .5$.</li>
+			<li> If $B(.75)$ or $B(1)$ are the maximum, we will choose $s=1$.</li>
+		</ul>
+		We can formalize this as a mapping $\ell: [0,1] \mapsto [0,1]$ called a <i>link</i> function.
+	<p>
+		Tethering the arguments this way guarantees that $t-s$ will be no more than $.5$ apart, so
+		\begin{align}
+			\EE{ \max_{t \in T(2)} |B(t) - B(\ell(t))|} \leq C  \sqrt{0.5 \log 4},
+		\end{align}
+		where the $0.5$ is the largest distance possible distance, and $4$ is the number of elements in $T(2)$.
+	</p>
+
+	<p>
+
+	</p>
+	\begin{align}
+	 \max_{t \in T(2)} |B(t)|
+	 	&\leq \max_{t \in T(2)} |B(t) - B(\ell(t))| + \max_{s \in T(1)} |B(s)|
+	\end{align}
+	Taking expectations, and applying the bound, and then recursing.
+	<p>
+		\begin{align}
+		 \EE{ \max_{t \in T(2)} |B(t)| }
+		 	&\leq \EE{ \max_{t \in T(2)} |B(t) - B(\ell(t))| } + \EE{ \max_{s \in T(1)} |B(s)|} \\
+ 		 	&\leq  C  \sqrt{0.5 \log 4} + \EE{ \max_{s \in T(1)} |B(s)|} \\
+ 		 	&\leq  C  \sqrt{0.5 \log 4} + C \sqrt{1 \log 2}  + E[\max_{t \in T(0)} |B(t)|] \\
+ 		 	&\leq  C  \sqrt{0.5 \log 4} + C \sqrt{1 \log 2}  + E[|Z|] \\
+		\end{align}
+	</p>
+	<p>
+		We can repeat this starting at a finer grids $k$. If we let each grid have $2^{k}$ equally spaced elements, then the size of
+		the increments decreases fast enough that the sum converges.
+	</p>
+	\begin{align}
+	 \EE{ \max_{t \in T(k)} |B(t)| }
+	 	\leq \sum_{j=0}^{k} C \sqrt{\frac{1}{2^{j-1}} \log 2^{j}}  +  E[|Z|]
+	\end{align}
+	<p>
+		Take limits to get rid of the dependence on $k$ on the right-hand side.
+	</p>
+	\begin{align}
+	 \EE{ \max_{t \in T(k)} |B(t)| }
+	 	\leq C \sum_{j=0}^{\infty}  \sqrt{\frac{1}{2^{j-1}} \log 2^{j}}  + E[|Z|] < \infty \qquad \text{for all}  \ k
+	\end{align}
+
+	Since this is finite for all $k$, its limit is also finite.
+	<div class="row">
+		<div class="six columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/brownian.svg" class="u-full-width"/>
+					<figcaption>The maximum between the <br /> heights at $B(.5)$ and $B(1)$...</figcaption>
+				</center>
+			</figure>
+		</div>
+		<div class="six columns">
+			<figure>
+				<center>
+					<img src="notes/empiricalprocesses/figures/brownian4.svg" class="u-full-width" />
+					<figcaption>...is smaller than the maximum between</figcaption>
+				</center>
+			</figure>
+		</div>
+	</div>
+
+	<h5>Entropy integrals</h5>
+
+	Entropy integrals
+
+
+	<h5>Generalize</h5>
+
+
+
+</div>
+
+
+
+
+
+
+
+	<!-- Harder problems-->
+	<div class="row" style="margin:5%">
+
+
+
+	<h4> Case Study </h4>
+		An didactic example from Pollard (1989):
+
+		<blockquote>
+			...an estimator whose study involves several nasty complications: minimization over a multidimensional parameter of a nonconvex, random criterion function that is not everywhere differentiable. (...) I am interested in it only for its resistant to traditional methods of analysis.
+		</blockquote>
+
+
+
+		\begin{align}
+			R_{n}(\theta) = \frac{1}{n} \sum_{i=1}^{n} \min\{ 1, \, ||X_{i} - \theta||_{2}^2 \}
+		\end{align}
+
+		\begin{align}
+			R(\theta) = \E\left[ \min\{ 1, \, ||X_{i} - \theta||_{2}^2 \} \right]
+		\end{align}
+
+	<p>
+	For $X_{i} \sim \mathcal{N}(0, I_{2})$, this is what the loss function looks like.
+	</p>
+		<figure>
+			<center>
+				<img src="notes/empiricalprocesses/figures/H.svg" class="u-max-full-width" />
+				<figcaption>Pollard's weird loss function for different $\theta$</figcaption>
+			</center>
+		</figure>
+
+	Also note how the function got less wild as we averaged over the data. In general, taking expectation produces something smoother. Let's assume that we have got something smooth enough that the resulting function $R$ is differentiable in a neighborhood of $\htheta_{n}$.
+
+	\begin{align}
+		R(\theta_{0}) =
+			R(\htheta_{n}) - \d{\theta} R(\ttheta_{n}) (\htheta_{n} - \theta_{0})
+	\end{align}
+</div>
+
+<div class="row" style="margin:5%">
+	<h4>Definitions</h4>
+	\begin{align}
+		\text{OSC}(\delta, X, T) = \sup \{ |X_{s} - X_{t} |  \quad \text{s.t} \quad d(s, t) < \delta \}
+	\end{align}
+</div>
+
+
+
+<div  class="row" style="margin:5%">
+	<h4>Young functions and maximal inequalities</h4>
+	Suppose $Z_{i} \sim \mathcal{N}(0, \sigma_{i}^2)$, not necessarily independent.
+
+	\begin{align}
+		\EE{\max_{i} |Z_{i}|} \leq \sum_{i} \EE{|Z_{i}|} \leq C \sigma_{\max} n
+	\end{align}
+
+	This bound grows too fast to be useful.
+
+	Let $H: \mathbb{R} \rightarrow \mathbb{R}_{+}$ be a non-negative, convex,
+	increasing function.
+
+	\begin{align}
+		H \left( \EE{\max_{i} |Z_{i}|} \right)
+			\leq \left(  \right)
+	\end{align}
+
+	<quotation>
+		The idea is to make $H$ increase about as fast as the tails of $|Z_{i}|$ can bear,
+		keeping the sum of expectations bounded by a multiple of $n$.
+	</quotation>
+
+
+	Let $H(z) = |z|^2$, for example.
+
+
+
+</div>
+
+<span style="padding-bottom:2000px">1</span>
+	</p>
+</div>
+
+
+<!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

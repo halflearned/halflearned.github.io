@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs –––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Vitor Hadad</title>
+  <meta name="personal academic page" content="">
+  <meta name="Vitor Hadad" content="">
+	<base href="file:///Users/vitorh/Documents/website/">
+
+
+  <!-- Mobile Specific Metas ––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT ––––––––––––––––––––––––––––––––––––––––––-->
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700' rel='stylesheet' type='text/css'>
+	<script src="https://use.fontawesome.com/039c40e32f.js"></script>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/halflearned.css">
+
+
+	<!--- Mathjax --->
+	<script type="text/javascript" async
+  	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<script type="text/x-mathjax-config">
+  	MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']]},
+				tags: 'ams'
+		});
+	</script>
+
+</head>
+<body>
+
+<!--- Declaring useful math symbols ---->
+
+\begin{align}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\SubG}{SubG}
+\DeclareMathOperator{\htheta}{\widehat{\theta}}
+\DeclareMathOperator{\stheta}{\theta_{*}}
+\newcommand{d}[1]{\frac{\partial}{\partial #1}}
+\newcommand{EE}[1]{\E \left[ #1 \right]}
+\newcommand{Var}[1]{\text{Var} \left[ #1 \right]}
+\newcommand{PP}[1]{P \left[ #1 \right]}
+\newcommand{\Norm}[1]{\left\lVert#1\right\rVert}
+\end{align}
+
+
+
+<!-- Primary Page Layout –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<div class="row" style="margin:5%">
+	<h1>Least squares theory</h1>
+</div>
+<div class="row" style="margin:5%">
+    <h3>A minimal example</h3>
+    <p>
+        Let's go through a short example to help build intuition. Consider the problem of estimating the slope of a one-dimensional linear regression without an intercept.
+        \begin{equation}
+            Y_{i} = X_{i}\stheta + \sigma \epsilon_{i}
+        \end{equation}
+    </p>
+
+    <p>
+        By definition, the least squares solution $\htheta$ minimizes the sum of squared errors for this particular sample.
+        \begin{equation}
+            \sum_{i} (Y_{i} - X_{i}\htheta )^2 \leq \sum_{i} (Y_{i} - X_{i}\stheta)^{2}
+        \end{equation}
+
+        Replacing each $Y_{i}$ in this inequality by its definition and then rearranging, we get a fundamental inequality
+        \begin{align}
+            \sum_{i} X_{i}^2(\stheta - \htheta)^2 \leq 2\sigma \sum_{i} \epsilon_{i} X_{i} (\htheta - \stheta).
+        \end{align}
+    </p>
+
+    <p>
+        Here comes the crucial insight. Any least squares solution must satisfy the inequality above. However, the left-hand side is a quadratic function in $\htheta - \stheta$, whereas the right-hand side is linear in this deviation. This bounds the term $\htheta - \stheta$, since if it were too large then this inequality would be violated.
+    </p>
+    <div class="twelve columns" style="padding:60px">
+        <figure>
+            <center>
+                <img src="notes/leastsq/simple_ls.svg" class="u-full-width"/>
+                <figcaption>Intuition for the critical radius</figcaption>
+            </center>
+        </figure>
+    </div>
+    <p>
+        So how badly can we estimate $\stheta$ in this example? Since $\htheta - \stheta$ is just a scalar, we can pull it out of the sum and let the inequality simplify to (note that both sides of this inequality are positive, so we can take their absolute value)
+        \begin{align}
+            |\htheta - \stheta| \leq 2\sigma \left| \frac{\sum_{i} \epsilon_{i} X_{i}}{\sum_{i} X_{i}^2} \right|,
+        \end{align}
+        which says that the maximum error in the estimator is bounded by the error variance (noisier data implies poorer estimates), the absolute correlation between the error and the regressor $|\frac{1}{n} \sum_{i} \epsilon_{i}X_{i}|$ (which should vanish asymptotically) and the $L_{2}(P_{n})$ norm of the covariate $\frac{1}{n}\sum_{i}X_{i}^2 $ (when data is more spread out, we are able to estimate the slope more accurately).  The expression above is evocative of the formula for asymptotic variance of ordinary least squares, which in this case would dictate that $nVar(\htheta) = \sigma^2/\sum_{i}X_{i}^2$.
+    </p>
+    <p>
+        The squared deviations between our predictions and truth
+        \begin{equation}
+            \EE{ \frac{1}{n} \sum_{i} (X_{i}\htheta - X_{i}\stheta)^2} \lesssim \frac{\sigma^2}{n}
+        \end{equation}
+    </p>
+    <p>
+        If $X_{i} \in \mathbb{R}^{d}$ instead... where $r = \text{rank}(X d)$.
+        \begin{equation}
+            \EE{ \frac{1}{n} \sum_{i} (X_{i}\htheta - X_{i}\stheta)^2} \lesssim r \frac{\sigma^2}{n}
+        \end{equation}
+    </p>
+    <p>
+        We can get further interesting results if we impose more structure on the problem. For example, if $\epsilon_{i}$ is 1-subgaussian, then a familiar argument shows [high prob bounds on the error].
+    </p>
+</div>
+
+<div class="row" style="margin:5%">
+    <h3>Nonparametric least squares</h3>
+<p>
+    Very similar
+    \begin{equation}
+        Y_{i} = f_{*}(X_{i}) + \sigma \epsilon_{i}
+    \end{equation}
+</p>
+<p>
+    Critical radius
+    \begin{equation}
+        \Norm{\hat{f}(X_{i}) - f_{*}(X_{i})}_{n}^{2}
+        \leq
+        2\frac{\sigma}{n} \sum_{i} \epsilon_{i} \left(\hat{f}(X_{i}) - f_{*}(X_{i}) \right)
+    \end{equation}
+</p>
+<p>
+    Let $\delta^2 := \Norm{\hat{f}(X_{i}) - f_{*}(X_{i})}_{n}^{2}$. Let $\mathcal{F}^{*} = \mathcal{F} - \{f_{*} \}$. Finally, let 
+</p>
+</div>
+
+<span style="padding-bottom:2000px">killme</span>
+	</p>
+</div>
+
+
+<!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
